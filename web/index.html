@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project-Based Learning Explorer | Lộ Trình Dự Án Thực Chiến</title>
+  <meta name="description" content="Khám phá và học lập trình qua 450+ dự án thực tế phân chia theo ngôn ngữ và sắp xếp từ dễ đến khó với giao diện hiện đại, trực quan.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- DevIcon Icons for Programming Languages -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow effects -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Main Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-logo">
+          <i class="fa-solid fa-code-branch"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Project-Based Learning</h1>
+          <span class="brand-badge">Local GUI Portal</span>
+        </div>
+      </div>
+
+      <!-- Quick Stats in Header -->
+      <div class="header-stats">
+        <div class="stat-pill" title="Tổng số dự án đã phân loại">
+          <i class="fa-solid fa-cubes"></i>
+          <span id="stat-total-projects">304</span> Dự án
+        </div>
+        <div class="stat-pill" title="Tổng số liên kết / bài học">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <span id="stat-total-lessons">457</span> Bài học
+        </div>
+        <div class="stat-pill" title="Ngôn ngữ lập trình được hỗ trợ">
+          <i class="fa-solid fa-code"></i>
+          <span id="stat-total-langs">23</span> Ngôn ngữ
+        </div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="nav-actions">
+        <!-- Progress Overview Widget -->
+        <div class="progress-widget" id="progress-widget" title="Tiến độ học tập của bạn">
+          <div class="progress-bar-mini">
+            <div class="progress-fill-mini" id="header-progress-fill" style="width: 0%;"></div>
+          </div>
+          <span id="header-progress-text">0/304 đã xong</span>
+        </div>
+
+        <!-- Surprise Me / Random Project Button -->
+        <button class="btn btn-secondary btn-icon-text" id="btn-random-project" title="Gợi ý một dự án ngẫu nhiên để thử thách bản thân">
+          <i class="fa-solid fa-dice"></i>
+          <span>Dự án ngẫu nhiên</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="btn btn-icon theme-toggle" id="theme-toggle" aria-label="Chuyển đổi giao diện sáng/tối">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <i class="fa-solid fa-sparkles"></i>
+        <span>Học lập trình thực chiến qua xây dựng sản phẩm từ con số 0</span>
+      </div>
+      <h2 class="hero-title">
+        Khám Phá Dự Án Lập Trình <br>
+        <span class="gradient-text">Từ Cơ Bản Đến Chuyên Sâu</span>
+      </h2>
+      <p class="hero-desc">
+        Hệ thống phân loại thông minh theo từng ngôn ngữ lập trình, sắp xếp khoa học từ dễ đến khó. 
+        Tự tay xây dựng hệ điều hành, trình biên dịch, game 3D, ứng dụng AI hay các nền tảng full-stack thực tế.
+      </p>
+
+      <!-- Search & Quick Filters Bar -->
+      <div class="search-box-container">
+        <div class="search-input-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="search-input" placeholder="Tìm kiếm dự án (VD: compiler, clone, game, redis, docker, neural net...)" autocomplete="off">
+          <button id="search-clear" class="search-clear-btn" style="display: none;" title="Xóa tìm kiếm">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="sort-selector-wrapper">
+          <i class="fa-solid fa-arrow-down-short-wide sort-icon"></i>
+          <label for="sort-select" class="sr-only">Sắp xếp</label>
+          <select id="sort-select" title="Lựa chọn cách sắp xếp">
+            <option value="diff-asc" selected>🎯 Sắp xếp: Dễ ➔ Khó (Khuyên dùng)</option>
+            <option value="diff-desc">🔥 Sắp xếp: Khó ➔ Dễ</option>
+            <option value="name-asc">🔤 Tên: A ➔ Z</option>
+            <option value="parts-desc">📚 Số bài học nhiều nhất</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Ribbon -->
+      <div class="metrics-ribbon" id="difficulty-metrics">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="main-container">
+    <!-- View Switcher & Tabs -->
+    <div class="view-controls">
+      <div class="view-tabs" role="tablist">
+        <button class="view-tab active" data-view="all" id="tab-all-projects">
+          <i class="fa-solid fa-grid-2"></i>
+          <span>Tất cả dự án</span>
+          <span class="tab-count" id="count-all">304</span>
+        </button>
+        <button class="view-tab" data-view="roadmap" id="tab-roadmap">
+          <i class="fa-solid fa-stairs"></i>
+          <span>Lộ trình theo Độ khó</span>
+        </button>
+        <button class="view-tab" data-view="bookmarked" id="tab-bookmarked">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>Đã đánh dấu</span>
+          <span class="tab-count" id="count-bookmarked">0</span>
+        </button>
+        <button class="view-tab" data-view="completed" id="tab-completed">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Đã hoàn thành</span>
+          <span class="tab-count" id="count-completed">0</span>
+        </button>
+        <button class="view-tab" data-view="audit" id="tab-audit">
+          <i class="fa-solid fa-stethoscope"></i>
+          <span>Báo cáo & Thiếu sót</span>
+          <span class="tab-badge-alert">Phân tích</span>
+        </button>
+      </div>
+
+      <div class="layout-toggle">
+        <button class="btn-layout active" data-layout="grid" id="btn-layout-grid" title="Giao diện dạng thẻ bo tròn">
+          <i class="fa-solid fa-table-cells-large"></i>
+        </button>
+        <button class="btn-layout" data-layout="compact" id="btn-layout-compact" title="Giao diện danh sách gọn">
+          <i class="fa-solid fa-list-ul"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Language Filter Chips Carousel / Bar -->
+    <div class="filter-section">
+      <div class="filter-header">
+        <div class="filter-title">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Phân loại theo Ngôn ngữ lập trình:</span>
+        </div>
+        <button class="btn-clear-filters" id="btn-reset-filters">
+          <i class="fa-solid fa-rotate-left"></i> Đặt lại bộ lọc
+        </button>
+      </div>
+
+      <div class="language-chips-scroll" id="language-chips">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </div>
+
+    <!-- Secondary Difficulty Filter Chips -->
+    <div class="difficulty-filter-bar">
+      <span class="filter-subtitle"><i class="fa-solid fa-gauge-high"></i> Cấp độ khó:</span>
+      <div class="difficulty-pills" id="difficulty-pills">
+        <button class="diff-pill active" data-diff="all">Tất cả cấp độ</button>
+        <button class="diff-pill pill-easy" data-diff="1">
+          <span class="pill-dot"></span> Dễ / Cơ bản
+        </button>
+        <button class="diff-pill pill-medium" data-diff="2">
+          <span class="pill-dot"></span> Trung bình
+        </button>
+        <button class="diff-pill pill-hard" data-diff="3">
+          <span class="pill-dot"></span> Nâng cao
+        </button>
+        <button class="diff-pill pill-expert" data-diff="4">
+          <span class="pill-dot"></span> Chuyên sâu
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Filters Summary & Result Count -->
+    <div class="results-header">
+      <div class="results-count">
+        Hiển thị <strong id="visible-count">304</strong> dự án
+        <span id="filter-status-desc" class="filter-status-desc"></span>
+      </div>
+      <div class="results-actions">
+        <div class="quick-jump-wrapper" id="category-jump-wrapper" style="display: none;">
+          <select id="category-jump-select" title="Nhảy nhanh đến danh mục con">
+            <option value="">Tất cả chuyên mục con</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects Grid Container -->
+    <div class="projects-grid" id="projects-grid">
+      <!-- Cards rendered dynamically via JavaScript -->
+    </div>
+
+    <!-- Roadmap View Container (Hidden by default) -->
+    <div class="roadmap-container" id="roadmap-container" style="display: none;">
+      <!-- Multi-tier columns from Level 1 to Level 4 -->
+    </div>
+
+    <!-- Repository Audit & Diagnostics View (Tab Báo cáo & Thiếu sót) -->
+    <div class="audit-container" id="audit-container" style="display: none;">
+      <!-- Dynamically rendered detailed analysis report -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <div class="empty-state-icon">
+        <i class="fa-solid fa-magnifying-glass-chart"></i>
+      </div>
+      <h3>Không tìm thấy dự án phù hợp</h3>
+      <p>Thử điều chỉnh từ khóa tìm kiếm hoặc bỏ bớt các bộ lọc ngôn ngữ / độ khó hiện tại.</p>
+      <button class="btn btn-primary" id="btn-empty-reset">
+        <i class="fa-solid fa-rotate-left"></i> Xem lại tất cả dự án
+      </button>
+    </div>
+  </main>
+
+  <!-- Project Detail Modal -->
+  <div class="modal-backdrop" id="modal-backdrop" style="display: none;">
+    <div class="modal-dialog modal-rounded" id="project-modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title-area">
+          <div class="modal-badges" id="modal-badges"></div>
+          <h3 class="modal-title" id="modal-title">Tiêu đề dự án</h3>
+          <span class="modal-subtitle" id="modal-subtitle">Ngôn ngữ / Danh mục</span>
+        </div>
+        <button class="modal-close-btn" id="modal-close-btn" aria-label="Đóng cửa sổ">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Project Description -->
+        <div class="modal-section">
+          <h4 class="section-title"><i class="fa-solid fa-circle-info"></i> Mô tả & Mục tiêu học tập</h4>
+          <p id="modal-description" class="modal-desc-text"></p>
+        </div>
+
+        <!-- Project Meta Details Grid -->
+        <div class="modal-meta-grid">
+          <div class="meta-item">
+            <span class="meta-label"><i class="fa-solid fa-gauge"></i> Cấp độ:</span>
+            <span class="meta-val" id="modal-diff-text"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label"><i class="fa-regular fa-clock"></i> Thời lượng dự kiến:</span>
+            <span class="meta-val" id="modal-time-text"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label"><i class="fa-solid fa-file-lines"></i> Định dạng:</span>
+            <span class="meta-val" id="modal-format-text"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label"><i class="fa-solid fa-shield-halved"></i> Giao thức:</span>
+            <span class="meta-val" id="modal-protocol-text"></span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="modal-section">
+          <h4 class="section-title"><i class="fa-solid fa-tags"></i> Thẻ công nghệ liên quan</h4>
+          <div class="modal-tags-list" id="modal-tags"></div>
+        </div>
+
+        <!-- Lessons / Parts List (For Series and Multi-part Tutorials) -->
+        <div class="modal-section" id="modal-parts-section">
+          <div class="section-header-flex">
+            <h4 class="section-title"><i class="fa-solid fa-list-ol"></i> Các bài học / Chương trong dự án (<span id="modal-parts-count">0</span>)</h4>
+          </div>
+          <div class="lessons-list" id="modal-lessons-list"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-footer-left">
+          <button class="btn btn-secondary btn-icon-text" id="modal-btn-bookmark">
+            <i class="fa-regular fa-bookmark"></i>
+            <span id="modal-bookmark-text">Lưu đánh dấu</span>
+          </button>
+          <button class="btn btn-secondary btn-icon-text" id="modal-btn-complete">
+            <i class="fa-regular fa-circle-check"></i>
+            <span id="modal-complete-text">Đánh dấu xong</span>
+          </button>
+        </div>
+        <div class="modal-footer-right">
+          <button class="btn btn-secondary" id="modal-btn-copy" title="Sao chép liên kết dự án">
+            <i class="fa-solid fa-link"></i> Sao chép link
+          </button>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-icon-text" id="modal-btn-open">
+            <span>Mở bài hướng dẫn</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <i class="fa-solid fa-code"></i>
+          <span>Project-Based Learning Explorer</span>
+        </div>
+        <p>Giao diện tra cứu và quản lý lộ trình học tập lập trình thực tế từ kho lưu trữ practical-tutorials/project-based-learning.</p>
+      </div>
+      <div class="footer-right">
+        <div class="footer-links">
+          <a href="https://github.com/practical-tutorials/project-based-learning" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i> GitHub Gốc
+          </a>
+          <a href="#tab-audit" id="footer-audit-link">
+            <i class="fa-solid fa-circle-exclamation"></i> Báo cáo Đánh giá
+          </a>
+        </div>
+        <p class="footer-copy">Chạy trên Localhost • Hệ thống hỗ trợ lập trình viên Việt Nam</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
